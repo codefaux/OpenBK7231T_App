@@ -364,6 +364,13 @@ static driver_t g_drivers[] = {
 	//drvdetail:"requires":""}
 	{ "HT16K33",	HT16K33_Init,		NULL,		NULL, NULL,NULL,  NULL, false },
 #endif
+#if ENABLE_DRIVER_VKL060
+	//drvdetail:{"name":"VKL060",
+	//drvdetail:"title":"TODO",
+	//drvdetail:"descr":"Driver for LCD display with I2C. See [discussion](https://www.elektroda.com/rtvforum/topic4042463.html) for applicable device.",
+	//drvdetail:"requires":""}
+	{ "VKL060",	VKL060_Init,		NULL,		NULL, NULL,NULL,  NULL, false },
+#endif
 	// Shared driver for TM1637, GN6932, TM1638 - TM_GN_Display_SharedInit
 #if ENABLE_DRIVER_TMGN
 	//drvdetail:{"name":"TM1637",

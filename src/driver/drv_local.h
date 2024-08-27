@@ -68,6 +68,8 @@ void TM1638_Init();
 
 void HT16K33_Init();
 
+void VKL060_Init();
+
 void HD2015_Init();
 
 void DRV_IR2_Init();
