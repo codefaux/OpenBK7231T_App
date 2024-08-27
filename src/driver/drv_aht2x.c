@@ -112,6 +112,8 @@ void AHT2X_Measure()
 
 	g_humid = ((float)raw_humidity * 100.0f / 1048576.0f) + g_calHum;
 	g_temp = (((200.0f * (float)raw_temperature) / 1048576.0f) - 50.0f) + g_calTemp;
+	channel_temp = g_cfg.pins.channels[g_softI2C.pin_data];
+	channel_humid = g_cfg.pins.channels2[g_softI2C.pin_data];
 
 	if(channel_temp > -1)
 	{
@@ -187,8 +189,6 @@ void AHT2X_Init()
 {
 	g_softI2C.pin_clk = Tokenizer_GetArgIntegerDefault(1, 7);
 	g_softI2C.pin_data = Tokenizer_GetArgIntegerDefault(2, 8);
-	channel_temp = g_cfg.pins.channels[g_softI2C.pin_data];
-	channel_humid = g_cfg.pins.channels2[g_softI2C.pin_data];
 	//channel_temp = Tokenizer_GetArgIntegerDefault(3, -1);
 	//channel_humid = Tokenizer_GetArgIntegerDefault(4, -1);
 
