@@ -616,18 +616,23 @@ void disp_3num(unsigned int dat)
 commandResult_t Vkl060_Test(void)
 {	
 	Vkl060_Init();
+	ADDLOG_INFO(LOG_FEATURE_DRV, "Starting test");
 	Vkl060_DisAll(0x00);
 	while(1)
 	{
+		ADDLOG_INFO(LOG_FEATURE_DRV, "Vkl060_DisAll 0xff");
 		Vkl060_DisAll(0xff);			//LCDȫ��
 		delay_nms(1000);					//��ʱ1S
 		
+		ADDLOG_INFO(LOG_FEATURE_DRV, "Vkl060_DisAll 0x00");
 		Vkl060_DisAll(0x00);			//LCDȫ��
 		delay_nms(1000);					//��ʱ1S
 		
+		ADDLOG_INFO(LOG_FEATURE_DRV, "Vkl060_3num 123");
 		disp_3num(123);           //��ʾ����123
 		delay_nms(3000);					//��ʱ3S
 		
+		ADDLOG_INFO(LOG_FEATURE_DRV, "Vkl060_DisSegComOn rolling");
 		Vkl060_DisAll(0x00);			//LCDȫ��
 		for(vkl060_segi=0;vkl060_segi<Vkl060_SEGNUM;vkl060_segi++)//seg
 		{
@@ -639,6 +644,7 @@ commandResult_t Vkl060_Test(void)
 			}
 		}
 		
+		ADDLOG_INFO(LOG_FEATURE_DRV, "Vkl060_DisSegComOff rolling");
 		Vkl060_DisAll(0xff);			//LCDȫ��
 		delay_nms(1000);					//��ʱ1S
 		for(vkl060_segi=0;vkl060_segi<Vkl060_SEGNUM;vkl060_segi++)//seg
@@ -655,9 +661,11 @@ commandResult_t Vkl060_Test(void)
 		Vkl060_DisAll(0x00);			//LCDȫ��
 		delay_nms(1000);					//��ʱ1S
 		
+		ADDLOG_INFO(LOG_FEATURE_DRV, "Vkl060_Enter_Standby");
 		Vkl060_Enter_Standby();		//�������͹���ģʽ
 		delay_nms(5000);					//��ʱ5S
 		
+		ADDLOG_INFO(LOG_FEATURE_DRV, "Vkl060_Exit_Standby");
 		Vkl060_Exit_Standby();		//�˳�����͹���ģʽ
 	}
 	return CMD_RES_OK;
