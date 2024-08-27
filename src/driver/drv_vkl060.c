@@ -114,15 +114,22 @@ unsigned char Vkl060_InitSequence(void);
 *******************************************************************************/
 void delay_nus(unsigned int n)	   
 {
-	unsigned char i;
-	while(n--)
-	{
-		i=10;
-		while(i--)
-		{//nopָ����ݵ�Ƭ������Ӧ���޸�
-			__nop();
-		}
-	}
+	#ifdef WIN32
+		// not possible on Windows port
+	#else
+		for (volatile int i = 0; i < n; i++)
+			__asm__("nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop");
+	#endif
+
+	// unsigned char i;
+	// while(n--)
+	// {
+	// 	i=10;
+	// 	while(i--)
+	// 	{//nopָ����ݵ�Ƭ������Ӧ���޸�
+	// 		__nop();
+	// 	}
+	// }
 }
 /*******************************************************************************
 * Function Name  : delay_nms
@@ -537,10 +544,10 @@ void Vkl060_Lowlevel_Init(void)
 {
 	//ͨ���ߵ�ƽ��ͬ������ӵ�ƽת����·
 	//�˺������ݿͻ���Ƭ������Ӧ���޸�	
-	Vkl060_SET_SDA_DIR();
+	// Vkl060_SET_SDA_DIR();
 
 	HAL_PIN_Setup_Output(Vkl060_Pin_SCL);
-	HAL_PIN_SETUP_INPUT_PULLUP(Vkl060_Pin_SDA);
+	HAL_PIN_Setup_Input_Pullup(Vkl060_Pin_SDA);
 	// GPIO_SetMode(Vkl060_SCL_PORT, Vkl060_SCL_PIN, GPIO_MODE_OUTPUT);
 	// GPIO_SetMode(Vkl060_SDA_PORT, Vkl060_SDA_PIN, GPIO_MODE_QUASI);
 		     
