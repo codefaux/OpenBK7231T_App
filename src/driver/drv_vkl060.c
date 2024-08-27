@@ -618,56 +618,55 @@ commandResult_t Vkl060_Test(void)
 	Vkl060_Init();
 	ADDLOG_INFO(LOG_FEATURE_DRV, "Starting test");
 	Vkl060_DisAll(0x00);
-	while(1)
+
+	ADDLOG_INFO(LOG_FEATURE_DRV, "Vkl060_DisAll 0xff");
+	Vkl060_DisAll(0xff);			//LCDȫ��
+	delay_nms(1000);					//��ʱ1S
+	
+	ADDLOG_INFO(LOG_FEATURE_DRV, "Vkl060_DisAll 0x00");
+	Vkl060_DisAll(0x00);			//LCDȫ��
+	delay_nms(1000);					//��ʱ1S
+	
+	ADDLOG_INFO(LOG_FEATURE_DRV, "Vkl060_3num 123");
+	disp_3num(123);           //��ʾ����123
+	delay_nms(3000);					//��ʱ3S
+	
+	ADDLOG_INFO(LOG_FEATURE_DRV, "Vkl060_DisSegComOn rolling");
+	Vkl060_DisAll(0x00);			//LCDȫ��
+	for(vkl060_segi=0;vkl060_segi<Vkl060_SEGNUM;vkl060_segi++)//seg
 	{
-		ADDLOG_INFO(LOG_FEATURE_DRV, "Vkl060_DisAll 0xff");
-		Vkl060_DisAll(0xff);			//LCDȫ��
-		delay_nms(1000);					//��ʱ1S
-		
-		ADDLOG_INFO(LOG_FEATURE_DRV, "Vkl060_DisAll 0x00");
-		Vkl060_DisAll(0x00);			//LCDȫ��
-		delay_nms(1000);					//��ʱ1S
-		
-		ADDLOG_INFO(LOG_FEATURE_DRV, "Vkl060_3num 123");
-		disp_3num(123);           //��ʾ����123
-		delay_nms(3000);					//��ʱ3S
-		
-		ADDLOG_INFO(LOG_FEATURE_DRV, "Vkl060_DisSegComOn rolling");
-		Vkl060_DisAll(0x00);			//LCDȫ��
-		for(vkl060_segi=0;vkl060_segi<Vkl060_SEGNUM;vkl060_segi++)//seg
+		for(vkl060_comi=0;vkl060_comi<vkl060_maxcom;vkl060_comi++)//com
 		{
-			for(vkl060_comi=0;vkl060_comi<vkl060_maxcom;vkl060_comi++)//com
-			{
-				Vkl060_DisSegComOn(vkl060_segtab[vkl060_segi],vkl060_comi);	//LCD�������
-				delay_nms(300);				//��ʱ300mS
-				Vkl060_DisAll(0x00);	//LCDȫ��
-			}
+			Vkl060_DisSegComOn(vkl060_segtab[vkl060_segi],vkl060_comi);	//LCD�������
+			delay_nms(300);				//��ʱ300mS
+			Vkl060_DisAll(0x00);	//LCDȫ��
 		}
-		
-		ADDLOG_INFO(LOG_FEATURE_DRV, "Vkl060_DisSegComOff rolling");
-		Vkl060_DisAll(0xff);			//LCDȫ��
-		delay_nms(1000);					//��ʱ1S
-		for(vkl060_segi=0;vkl060_segi<Vkl060_SEGNUM;vkl060_segi++)//seg
-		{
-			for(vkl060_comi=0;vkl060_comi<vkl060_maxcom;vkl060_comi++)//com
-			{
-				Vkl060_DisSegComOff(vkl060_segtab[vkl060_segi],vkl060_comi);	//LCD����ر�
-				delay_nms(300);				//��ʱ300mS
-				Vkl060_DisAll(0xff);	//LCDȫ��
-			}
-		}
-		delay_nms(1000);					//��ʱ1S
-		
-		Vkl060_DisAll(0x00);			//LCDȫ��
-		delay_nms(1000);					//��ʱ1S
-		
-		ADDLOG_INFO(LOG_FEATURE_DRV, "Vkl060_Enter_Standby");
-		Vkl060_Enter_Standby();		//�������͹���ģʽ
-		delay_nms(5000);					//��ʱ5S
-		
-		ADDLOG_INFO(LOG_FEATURE_DRV, "Vkl060_Exit_Standby");
-		Vkl060_Exit_Standby();		//�˳�����͹���ģʽ
 	}
+	
+	ADDLOG_INFO(LOG_FEATURE_DRV, "Vkl060_DisSegComOff rolling");
+	Vkl060_DisAll(0xff);			//LCDȫ��
+	delay_nms(1000);					//��ʱ1S
+	for(vkl060_segi=0;vkl060_segi<Vkl060_SEGNUM;vkl060_segi++)//seg
+	{
+		for(vkl060_comi=0;vkl060_comi<vkl060_maxcom;vkl060_comi++)//com
+		{
+			Vkl060_DisSegComOff(vkl060_segtab[vkl060_segi],vkl060_comi);	//LCD����ر�
+			delay_nms(300);				//��ʱ300mS
+			Vkl060_DisAll(0xff);	//LCDȫ��
+		}
+	}
+	delay_nms(1000);					//��ʱ1S
+	
+	Vkl060_DisAll(0x00);			//LCDȫ��
+	delay_nms(1000);					//��ʱ1S
+	
+	ADDLOG_INFO(LOG_FEATURE_DRV, "Vkl060_Enter_Standby");
+	Vkl060_Enter_Standby();		//�������͹���ģʽ
+	delay_nms(5000);					//��ʱ5S
+	
+	ADDLOG_INFO(LOG_FEATURE_DRV, "Vkl060_Exit_Standby");
+	Vkl060_Exit_Standby();		//�˳�����͹���ģʽ
+
 	return CMD_RES_OK;
 }
 
@@ -676,6 +675,7 @@ commandResult_t Vkl060_Test(void)
 // backlog startDriver HT16K33; HT16K33_Test
 // backlog startDriver HT16K33; HT16K33_Print Help
 void VKL060_Init() {
+	ADDLOG_INFO(LOG_FEATURE_DRV, "Vkl060_Init");
 	//cmddetail:{"name":"VKL060_Test","args":"VKL060_Test",
 	//cmddetail:"descr":"",
 	//cmddetail:"fn":"NULL);","file":"driver/drv_vkl060.c","requires":"",
