@@ -59,7 +59,7 @@ inline void _HAL_Pin_H(uint8_t pin) {
 /* extern variables ----------------------------------------------------------*/
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-#define VKl060_CLK 10 //SCL�ź���Ƶ��,��delay_nusʵ�� 50->10kHz 10->50kHz 5->100kHz
+#define VKl060_CLK 4 //SCL�ź���Ƶ��,��delay_nusʵ�� 50->10kHz 10->50kHz 5->100kHz
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 //segtab[]�����Ӧʵ�ʵ�оƬ��LCD���ߣ����߼�-VKl060�ο���·
@@ -119,7 +119,7 @@ void delay_nus(unsigned int n)
 	#ifdef WIN32
 		// not possible on Windows port
 	#else
-		// for (volatile int i = 0; i < n; i++)
+		for (volatile int i = 0; i < n; i++)
 			__asm__("nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop");
 	#endif
 
