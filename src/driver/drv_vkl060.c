@@ -23,7 +23,9 @@ inline void _HAL_Pin_L(uint8_t pin) {
 
 
 inline void _HAL_Pin_H(uint8_t pin) {
-	HAL_PIN_Setup_Input_Pullup(pin);
+	// HAL_PIN_Setup_Input_Pullup(pin);
+	HAL_PIN_Setup_Output(pin);
+	HAL_PIN_SetOutputValue(pin, 1);
 }
 
 
@@ -117,7 +119,7 @@ void delay_nus(unsigned int n)
 	#ifdef WIN32
 		// not possible on Windows port
 	#else
-		for (volatile int i = 0; i < n; i++)
+		// for (volatile int i = 0; i < n; i++)
 			__asm__("nop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop\nnop");
 	#endif
 
