@@ -6,6 +6,12 @@ on:
   pull_request:
     branches: 
       - '**'
+  workflow_dispatch:  # 👈 Adds manual trigger
+    inputs:
+      reason:
+        description: 'Reason for manual run (optional)'
+        required: false
+        default: 'Manual trigger'
 
 env:
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
